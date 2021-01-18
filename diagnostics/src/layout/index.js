@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -8,6 +8,7 @@ import { Page } from '@geist-ui/react';
 
 const Layout = (props) => {
   const { children, switchThemes, themeType } = props;
+
   return (
     <Page size="large">
       <Page.Header>
