@@ -13,7 +13,7 @@ const Header = (props) => {
       style={{ height: '80px', paddingTop: '20px' }}
     >
       <Col span="24" style={{ alignItems: 'center' }}>
-        motesque
+        Diagnostics
       </Col>
       <Col span="2" style={{ alignItems: 'center' }}>
         <Button
