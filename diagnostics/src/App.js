@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense, useState } from 'react';
+import { GeistProvider, CssBaseline } from '@geist-ui/react';
 
-function App() {
+// Routing
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+// Components
+import Layout from './layout';
+import Loader from './components/loader';
+
+// Lazy loading with code splitting.
+const Home = lazy(() => import('./pages/home'));
+const Journal = lazy(() => import('./pages/journal'));
+
+const App = () => {
+  const [themeType, setThemeType] = useState('dark');
+  const switchThemes = () => {
+    setThemeType((lastThemeType) =>
+      lastThemeType === 'dark' ? 'light' : 'dark'
+    );
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GeistProvider theme={{ type: themeType }}>
+      <Router>
+        <CssBaseline />
+        <Layout switchThemes={switchThemes} themeType={themeType}>
+          <Suspense fallback={<Loader />}>
+            <Switch>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/:id" component={Journal}>
+                <Journal themeType={themeType} />
+              </Route>
+            </Switch>
+          </Suspense>
+        </Layout>
+      </Router>
+    </GeistProvider>
   );
-}
+};
 
 export default App;
