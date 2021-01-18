@@ -10,6 +10,7 @@ import Loader from './components/loader';
 
 // Lazy loading with code splitting.
 const Home = lazy(() => import('./pages/home'));
+
 const Journal = lazy(() => import('./pages/journal'));
 
 const App = () => {
